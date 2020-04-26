@@ -16,31 +16,31 @@
 
   function testWebSocket()
   {
-    websocket = new WebSocket(wsUri);
-    websocket.onopen = function(evt) { onOpen(evt) };
-    websocket.onclose = function(evt) { onClose(evt) };
-    websocket.onmessage = function(evt) { onMessage(evt) };
-    websocket.onerror = function(evt) { onError(evt) };
+    myWebsocket = new WebSocket(wsUri);
+    myWebsocket.onopen = openSocket;
+    myWebsocket.onclose = closeSocket;
+    myWebsocket.onmessage = handleMassage;
+    myWebsocket.onerror = handleError;
   }
 
-  function onOpen(evt)
+  function openSocket(evt)
   {
     writeToScreen("CONNECTED To wss://echo.websocket.org");
     doSend("Hello server!");
   }
 
-  function onClose(evt)
+  function closeSocket(evt)
   {
     writeToScreen("DISCONNECTED");
   }
 
-  function onMessage(evt)
+  function handleMassage(evt)
   {
     writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
-    websocket.close();
+    myWebsocket.close();
   }
 
-  function onError(evt)
+  function handleError(evt)
   {
     writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
   }
@@ -48,7 +48,7 @@
   function doSend(message)
   {
     writeToScreen("SENT: " + message);
-    websocket.send(message);
+    myWebsocket.send(message);
   }
 
   function writeToScreen(message)
