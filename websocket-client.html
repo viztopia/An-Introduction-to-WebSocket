@@ -25,7 +25,7 @@
 
   function openSocket(evt)
   {
-    writeToScreen("CONNECTED To wss://echo.websocket.org");
+    writeToScreen("CONNECTED To " + wsUri);
     doSend("Hello server!");
   }
 
